@@ -13,7 +13,7 @@ import { GlobalPresence } from '@/components/home/GlobalPresence';
 
 export default function Home() {
   return (
-    <main className="min-h-screen selection:bg-brand-700 selection:text-white overflow-x-hidden bg-white dark:bg-night-950">
+    <main className="min-h-screen overflow-x-hidden bg-white selection:bg-brand-700 selection:text-white dark:bg-night-950">
       <Header />
       <HeroWrapper />
       <Methodology />
