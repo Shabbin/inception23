@@ -67,7 +67,7 @@ export const Header = () => {
   return (
     <>
       <div
-        className={`h-[84px] lg:transition-all lg:duration-300 ${
+        className={`h-[76px] sm:h-[84px] lg:transition-all lg:duration-300 ${
           isScrolled ? 'lg:h-[72px]' : 'lg:h-[92px]'
         }`}
       />
@@ -83,26 +83,26 @@ export const Header = () => {
               : 'border-white/10 bg-[rgb(24,27,44)]'
         } lg:transition-all lg:duration-300`}
       >
-        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto w-full max-w-[1440px] px-3 sm:px-6 lg:px-10">
           <div
-            className={`flex items-center justify-between gap-6 h-[84px] lg:transition-all lg:duration-300 ${
+            className={`flex items-center justify-between gap-3 sm:gap-6 h-[76px] sm:h-[84px] lg:transition-all lg:duration-300 ${
               isScrolled ? 'lg:h-[72px]' : 'lg:h-[92px]'
             }`}
           >
             <a
               href="#home"
-              className="group flex min-w-0 shrink-0 items-center gap-3"
+              className="group flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3 lg:flex-none"
               suppressHydrationWarning
             >
               <div
-                className={`relative flex shrink-0 items-center justify-center h-11 w-11 md:h-12 md:w-12 lg:transition-all lg:duration-300 ${
+                className={`relative flex shrink-0 items-center justify-center h-9 w-9 sm:h-11 sm:w-11 md:h-12 md:w-12 lg:transition-all lg:duration-300 ${
                   isScrolled ? 'lg:h-10 lg:w-10' : 'lg:h-12 lg:w-12'
                 }`}
               >
                 <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(168,85,247,0.28)_0%,rgba(109,40,217,0.22)_45%,rgba(44,20,91,0.06)_100%)] blur-[1px]" />
 
                 <div
-                  className={`relative z-10 flex items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(145deg,#7c3aed_0%,#5b21b6_38%,#3b136f_72%,#2c145b_100%)] font-serif font-bold text-white shadow-[0_10px_24px_rgba(44,20,91,0.36)] h-10 w-10 text-lg md:h-11 md:w-11 md:text-xl lg:transition-all lg:duration-300 ${
+                  className={`relative z-10 flex items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(145deg,#7c3aed_0%,#5b21b6_38%,#3b136f_72%,#2c145b_100%)] font-serif font-bold text-white shadow-[0_10px_24px_rgba(44,20,91,0.36)] h-8 w-8 text-sm sm:h-10 sm:w-10 sm:text-lg md:h-11 md:w-11 md:text-xl lg:transition-all lg:duration-300 ${
                     isScrolled ? 'lg:h-9 lg:w-9 lg:text-base' : 'lg:h-11 lg:w-11'
                   }`}
                 >
@@ -111,11 +111,11 @@ export const Header = () => {
                 </div>
               </div>
 
-              <div className="flex min-w-0 flex-col justify-center">
+              <div className="flex min-w-0 max-w-[calc(100vw-122px)] flex-col justify-center sm:max-w-none">
                 <span
-                  className={`truncate font-serif font-bold leading-none tracking-[-0.035em] ${
+                  className={`truncate font-serif font-bold leading-none tracking-[-0.04em] ${
                     isLight ? 'text-[#111c34]' : 'text-white'
-                  } text-[2rem] md:text-[2.15rem] lg:transition-all lg:duration-300 ${
+                  } text-[1.15rem] xs:text-[1.25rem] sm:text-[2rem] md:text-[2.15rem] lg:transition-all lg:duration-300 ${
                     isScrolled ? 'lg:text-[1.85rem]' : 'lg:text-[2.15rem]'
                   }`}
                 >
@@ -264,27 +264,27 @@ export const Header = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex shrink-0 items-center gap-2 lg:hidden">
               <button
                 onClick={toggleTheme}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border transition ${
                   isLight
                     ? 'border-slate-300 bg-[#f3f8f9] text-[#111c34] hover:bg-white'
                     : 'border-white/15 bg-black/20 text-white hover:bg-white/10'
                 }`}
               >
-                {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+                {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
               </button>
 
               <button
                 onClick={() => setMobileMenu((prev) => !prev)}
-                className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border transition ${
                   isLight
                     ? 'border-slate-300 bg-[#f3f8f9] text-[#111c34] hover:bg-white'
                     : 'border-white/15 bg-black/20 text-white hover:bg-white/10'
                 }`}
               >
-                {mobileMenu ? <X size={18} /> : <Menu size={18} />}
+                {mobileMenu ? <X size={16} /> : <Menu size={16} />}
               </button>
             </div>
           </div>
