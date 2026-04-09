@@ -32,7 +32,7 @@ const homeContent = {
         en: 'Comprehensive legal assistance, compliance management, and corporate protection.',
         bn: 'সমন্বিত আইনি সহায়তা, কমপ্লায়েন্স ব্যবস্থাপনা এবং কর্পোরেট সুরক্ষা।',
       },
-      lottie: '/law.lottie',
+      lottie: '/Law.lottie',
     },
     {
       id: 'tech',
