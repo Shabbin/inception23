@@ -43,13 +43,21 @@ export const Header = () => {
 
   useEffect(() => {
     const handleShrink = () => {
-      setIsScrolled(window.scrollY > 40);
+      if (window.innerWidth >= 1024) {
+        setIsScrolled(window.scrollY > 40);
+      } else {
+        setIsScrolled(false);
+      }
     };
 
-    window.addEventListener('scroll', handleShrink);
     handleShrink();
+    window.addEventListener('scroll', handleShrink);
+    window.addEventListener('resize', handleShrink);
 
-    return () => window.removeEventListener('scroll', handleShrink);
+    return () => {
+      window.removeEventListener('scroll', handleShrink);
+      window.removeEventListener('resize', handleShrink);
+    };
   }, []);
 
   useEffect(() => {
@@ -59,13 +67,13 @@ export const Header = () => {
   return (
     <>
       <div
-        className={`transition-all duration-300 ${
-          isScrolled ? 'h-[64px] lg:h-[72px]' : 'h-[84px] lg:h-[92px]'
+        className={`h-[84px] lg:transition-all lg:duration-300 ${
+          isScrolled ? 'lg:h-[72px]' : 'lg:h-[92px]'
         }`}
       />
 
       <header
-        className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
+        className={`fixed top-0 left-0 z-50 w-full ${
           isLight
             ? isScrolled
               ? 'border-slate-300/70 bg-[#f3f8f9]/78 backdrop-blur-xl shadow-[0_8px_30px_rgba(15,23,42,0.06)]'
@@ -73,12 +81,12 @@ export const Header = () => {
             : isScrolled
               ? 'border-white/10 bg-[rgba(24,27,44,0.72)] backdrop-blur-xl shadow-[0_10px_34px_rgba(0,0,0,0.26)]'
               : 'border-white/10 bg-[rgb(24,27,44)]'
-        }`}
+        } lg:transition-all lg:duration-300`}
       >
         <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <div
-            className={`flex items-center justify-between gap-6 transition-all duration-300 ${
-              isScrolled ? 'h-[64px] lg:h-[72px]' : 'h-[84px] lg:h-[92px]'
+            className={`flex items-center justify-between gap-6 h-[84px] lg:transition-all lg:duration-300 ${
+              isScrolled ? 'lg:h-[72px]' : 'lg:h-[92px]'
             }`}
           >
             <a
@@ -87,19 +95,15 @@ export const Header = () => {
               suppressHydrationWarning
             >
               <div
-                className={`relative flex shrink-0 items-center justify-center transition-all duration-300 ${
-                  isScrolled
-                    ? 'h-9 w-9 md:h-10 md:w-10'
-                    : 'h-11 w-11 md:h-12 md:w-12'
+                className={`relative flex shrink-0 items-center justify-center h-11 w-11 md:h-12 md:w-12 lg:transition-all lg:duration-300 ${
+                  isScrolled ? 'lg:h-10 lg:w-10' : 'lg:h-12 lg:w-12'
                 }`}
               >
                 <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(168,85,247,0.28)_0%,rgba(109,40,217,0.22)_45%,rgba(44,20,91,0.06)_100%)] blur-[1px]" />
 
                 <div
-                  className={`relative z-10 flex items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(145deg,#7c3aed_0%,#5b21b6_38%,#3b136f_72%,#2c145b_100%)] font-serif font-bold text-white shadow-[0_10px_24px_rgba(44,20,91,0.36)] transition-all duration-300 ${
-                    isScrolled
-                      ? 'h-8 w-8 md:h-9 md:w-9 text-base'
-                      : 'h-10 w-10 md:h-11 md:w-11 text-lg md:text-xl'
+                  className={`relative z-10 flex items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(145deg,#7c3aed_0%,#5b21b6_38%,#3b136f_72%,#2c145b_100%)] font-serif font-bold text-white shadow-[0_10px_24px_rgba(44,20,91,0.36)] h-10 w-10 text-lg md:h-11 md:w-11 md:text-xl lg:transition-all lg:duration-300 ${
+                    isScrolled ? 'lg:h-9 lg:w-9 lg:text-base' : 'lg:h-11 lg:w-11'
                   }`}
                 >
                   <div className="pointer-events-none absolute inset-[1px] rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_35%,transparent_65%)]" />
@@ -111,10 +115,8 @@ export const Header = () => {
                 <span
                   className={`truncate font-serif font-bold leading-none tracking-[-0.035em] ${
                     isLight ? 'text-[#111c34]' : 'text-white'
-                  } transition-all duration-300 ${
-                    isScrolled
-                      ? 'text-[1.7rem] md:text-[1.85rem]'
-                      : 'text-[2rem] md:text-[2.15rem]'
+                  } text-[2rem] md:text-[2.15rem] lg:transition-all lg:duration-300 ${
+                    isScrolled ? 'lg:text-[1.85rem]' : 'lg:text-[2.15rem]'
                   }`}
                 >
                   INCEPTION
@@ -122,9 +124,11 @@ export const Header = () => {
                 </span>
 
                 <span
-                  className={`hidden text-[10px] font-semibold uppercase tracking-[0.24em] transition-all duration-300 md:block ${
+                  className={`hidden text-[10px] font-semibold uppercase tracking-[0.24em] md:block ${
                     isLight ? 'text-slate-500' : 'text-white/38'
-                  } ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}
+                  } lg:transition-all lg:duration-300 ${
+                    isScrolled ? 'lg:opacity-0 lg:h-0 lg:overflow-hidden' : 'lg:opacity-100'
+                  }`}
                 >
                   {lang === 'en' ? 'Strategic Advisory' : 'স্ট্র্যাটেজিক অ্যাডভাইজরি'}
                 </span>
