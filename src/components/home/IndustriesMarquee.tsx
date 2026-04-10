@@ -124,17 +124,17 @@ export const IndustriesMarquee = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_60%)]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
-          className="max-w-4xl mx-auto text-center mb-14 md:mb-20"
+          className="max-w-4xl mx-auto text-center mb-12 md:mb-20"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/5 px-4 py-2 mb-6">
             <Sparkles className="h-4 w-4 text-brand-600 dark:text-brand-400" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-700 dark:text-brand-400">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-400">
               {lang === 'en' ? 'Sectors of Operation' : 'কার্যকরী খাতসমূহ'}
             </span>
           </div>
@@ -155,51 +155,53 @@ export const IndustriesMarquee = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.75 }}
-          className="mb-10 md:mb-12"
+          className="mb-8 md:mb-12"
         >
-          <div className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)]">
+          <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)]">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-violet-500/10 to-emerald-400/10" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.22),transparent_25%)]" />
 
-            <div className="relative p-7 md:p-10 lg:p-12">
-              <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-10 items-start">
+            <div className="relative p-5 sm:p-6 md:p-10 lg:p-12">
+              <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6 md:gap-8 lg:gap-10 items-start">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-4 py-2 mb-6">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] px-4 py-2 mb-5 md:mb-6">
                     <Globe2 className="h-4 w-4 text-brand-700 dark:text-brand-400" />
-                    <span className="text-[11px] uppercase tracking-[0.26em] text-gray-600 dark:text-gray-300 font-semibold">
-                      {lang === 'en' ? 'Cross-Industry Advisory Platform' : 'বহুখাতভিত্তিক অ্যাডভাইজরি প্ল্যাটফর্ম'}
+                    <span className="text-[11px] md:text-xs uppercase tracking-[0.18em] text-brand-900 dark:text-brand-300 font-semibold">
+                      {lang === 'en'
+                        ? 'Cross-Industry Advisory Platform'
+                        : 'বহুখাতভিত্তিক অ্যাডভাইজরি প্ল্যাটফর্ম'}
                     </span>
                   </div>
 
-                  <h4 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-brand-950 dark:text-white leading-tight">
+                  <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-brand-950 dark:text-white leading-tight">
                     {lang === 'en'
                       ? 'One platform. Multiple industries. Integrated solutions.'
                       : 'একটি প্ল্যাটফর্ম। একাধিক শিল্পখাত। সমন্বিত সমাধান।'}
                   </h4>
 
-                  <p className="mt-5 max-w-2xl text-[15px] md:text-lg leading-8 text-gray-600 dark:text-gray-300">
+                  <p className="mt-4 md:mt-5 max-w-2xl text-[15px] md:text-lg leading-7 md:leading-8 text-gray-600 dark:text-gray-300">
                     {lang === 'en'
                       ? 'Our work is not limited to one sector. We support private enterprises, public institutions, regulated industries, and high-growth organizations with tailored advisory, legal, and digital transformation capabilities.'
                       : 'আমাদের কাজ কোনো একক খাতে সীমাবদ্ধ নয়। আমরা প্রাইভেট এন্টারপ্রাইজ, পাবলিক প্রতিষ্ঠান, নিয়ন্ত্রিত শিল্প এবং দ্রুত-বর্ধনশীল প্রতিষ্ঠানের জন্য কাস্টমাইজড পরামর্শ, আইনি সহায়তা এবং ডিজিটাল রূপান্তর সক্ষমতা প্রদান করি।'}
                   </p>
 
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-700 dark:text-gray-300">
+                  <div className="mt-6 md:mt-8 flex flex-wrap gap-2.5 md:gap-3">
+                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-[11px] md:text-xs uppercase tracking-[0.14em] text-gray-700 dark:text-gray-300">
                       {lang === 'en' ? 'Private Sector' : 'প্রাইভেট সেক্টর'}
                     </div>
-                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-700 dark:text-gray-300">
+                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-[11px] md:text-xs uppercase tracking-[0.14em] text-gray-700 dark:text-gray-300">
                       {lang === 'en' ? 'Public Institutions' : 'পাবলিক প্রতিষ্ঠান'}
                     </div>
-                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-700 dark:text-gray-300">
+                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-[11px] md:text-xs uppercase tracking-[0.14em] text-gray-700 dark:text-gray-300">
                       {lang === 'en' ? 'Regulated Markets' : 'নিয়ন্ত্রিত বাজার'}
                     </div>
-                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-700 dark:text-gray-300">
+                    <div className="rounded-full border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-2 text-[11px] md:text-xs uppercase tracking-[0.14em] text-gray-700 dark:text-gray-300">
                       {lang === 'en' ? 'Enterprise Transformation' : 'এন্টারপ্রাইজ ট্রান্সফরমেশন'}
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                   {capabilityPillars.map((pillar, index) => (
                     <motion.div
                       key={pillar.title.en}
@@ -207,17 +209,17 @@ export const IndustriesMarquee = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-80px' }}
                       transition={{ duration: 0.45, delay: index * 0.08 }}
-                      className="relative overflow-hidden rounded-[1.6rem] border border-gray-200 dark:border-white/10 bg-white/75 dark:bg-white/[0.05] backdrop-blur-md p-5 md:p-6 shadow-sm"
+                      className="relative overflow-hidden rounded-[1.4rem] md:rounded-[1.6rem] border border-gray-200 dark:border-white/10 bg-white/75 dark:bg-white/[0.05] backdrop-blur-md p-4 md:p-6 shadow-sm"
                     >
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_30%)]" />
                       <div className="relative z-10">
-                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04]">
+                        <div className="mb-4 md:mb-5 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04]">
                           <pillar.icon className="h-5 w-5 text-brand-700 dark:text-brand-400" />
                         </div>
-                        <h5 className="text-lg font-semibold text-brand-950 dark:text-white">
+                        <h5 className="text-base md:text-lg font-semibold text-brand-950 dark:text-white">
                           {lang === 'en' ? pillar.title.en : pillar.title.bn}
                         </h5>
-                        <p className="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-400">
+                        <p className="mt-2.5 md:mt-3 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400">
                           {lang === 'en' ? pillar.text.en : pillar.text.bn}
                         </p>
                       </div>
@@ -226,16 +228,16 @@ export const IndustriesMarquee = () => {
                 </div>
               </div>
 
-              <div className="mt-8 md:mt-10 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+              <div className="mt-6 md:mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
                 {industries.map((industry) => (
                   <div
                     key={industry.name.en}
                     className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.04] px-4 py-4 text-center"
                   >
-                    <p className="text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-brand-700 dark:text-brand-400 mb-2">
+                    <p className="mb-2 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-brand-900 dark:text-brand-300 leading-5 break-words">
                       {lang === 'en' ? industry.eyebrow.en : industry.eyebrow.bn}
                     </p>
-                    <p className="font-semibold text-brand-950 dark:text-white text-sm md:text-[15px]">
+                    <p className="font-semibold text-brand-950 dark:text-white text-sm sm:text-[15px] leading-snug">
                       {lang === 'en' ? industry.name.en : industry.name.bn}
                     </p>
                   </div>
@@ -245,7 +247,7 @@ export const IndustriesMarquee = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
           {industries.map((industry, index) => (
             <motion.div
               key={industry.name.en}
@@ -255,36 +257,36 @@ export const IndustriesMarquee = () => {
               transition={{ duration: 0.55, delay: index * 0.05 }}
               className="group"
             >
-              <div className="relative h-full overflow-hidden rounded-[1.75rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl p-6 md:p-7 shadow-sm hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1">
+              <div className="relative h-full overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl p-5 sm:p-6 md:p-7 shadow-sm hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1">
                 <div
                   className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${industry.accent}`}
                 />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_28%)] opacity-60" />
 
                 <div className="relative z-10 flex h-full flex-col">
-                  <div className="mb-7 flex items-start justify-between gap-4">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] shadow-sm group-hover:scale-105 transition-transform duration-500">
-                      <industry.icon className="h-10 w-10 drop-shadow-sm" />
+                  <div className="mb-5 md:mb-7 flex items-start justify-between gap-4">
+                    <div className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] shadow-sm group-hover:scale-105 transition-transform duration-500">
+                      <industry.icon className="h-9 w-9 md:h-10 md:w-10 drop-shadow-sm" />
                     </div>
 
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-brand-950 dark:text-white transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
+                    <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-brand-950 dark:text-white transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
                       <ArrowUpRight className="h-4 w-4" />
                     </div>
                   </div>
 
-                  <div className="mb-3 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-400">
+                  <div className="mb-2.5 md:mb-3 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] md:tracking-[0.18em] text-brand-900 dark:text-brand-300 leading-5 break-words">
                     {lang === 'en' ? industry.eyebrow.en : industry.eyebrow.bn}
                   </div>
 
-                  <h5 className="font-serif font-bold text-2xl leading-tight text-brand-950 dark:text-white">
+                  <h5 className="font-serif font-bold text-[1.75rem] sm:text-[1.9rem] md:text-2xl leading-tight text-brand-950 dark:text-white">
                     {lang === 'en' ? industry.name.en : industry.name.bn}
                   </h5>
 
-                  <p className="mt-4 text-sm leading-7 text-gray-600 dark:text-gray-400 flex-grow">
+                  <p className="mt-3 md:mt-4 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400 flex-grow">
                     {lang === 'en' ? industry.description.en : industry.description.bn}
                   </p>
 
-                  <div className="mt-6 h-[2px] w-10 bg-brand-600 dark:bg-brand-500 transition-all duration-500 group-hover:w-24" />
+                  <div className="mt-5 md:mt-6 h-[2px] w-10 bg-brand-600 dark:bg-brand-500 transition-all duration-500 group-hover:w-24" />
                 </div>
               </div>
             </motion.div>
