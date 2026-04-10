@@ -17,6 +17,8 @@ export const Header = () => {
   const [activeSection, setActiveSection] = useState('');
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const isLight = theme === 'light';
 
@@ -64,6 +66,49 @@ export const Header = () => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
+  useEffect(() => {
+    const handleMobileNavbar = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileNavVisible(true);
+        setLastScrollY(window.scrollY);
+        return;
+      }
+
+      if (mobileMenu) {
+        setMobileNavVisible(true);
+        setLastScrollY(window.scrollY);
+        return;
+      }
+
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 10) {
+        setMobileNavVisible(true);
+      } else if (currentScrollY > lastScrollY + 4) {
+        setMobileNavVisible(false);
+      } else if (currentScrollY < lastScrollY - 4) {
+        setMobileNavVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileNavVisible(true);
+      }
+    };
+
+    handleMobileNavbar();
+    window.addEventListener('scroll', handleMobileNavbar, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('scroll', handleMobileNavbar);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [lastScrollY, mobileMenu]);
+
   return (
     <>
       <div
@@ -73,7 +118,9 @@ export const Header = () => {
       />
 
       <header
-        className={`fixed top-0 left-0 z-50 w-full ${
+        className={`fixed top-0 left-0 z-50 w-full transform transition-transform duration-300 ease-out lg:translate-y-0 ${
+          mobileNavVisible ? 'translate-y-0' : '-translate-y-full'
+        } ${
           isLight
             ? isScrolled
               ? 'border-slate-300/70 bg-[#f3f8f9]/78 backdrop-blur-xl shadow-[0_8px_30px_rgba(15,23,42,0.06)]'
@@ -277,7 +324,10 @@ export const Header = () => {
               </button>
 
               <button
-                onClick={() => setMobileMenu((prev) => !prev)}
+                onClick={() => {
+                  setMobileNavVisible(true);
+                  setMobileMenu((prev) => !prev);
+                }}
                 className={`flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border transition ${
                   isLight
                     ? 'border-slate-300 bg-[#f3f8f9] text-[#111c34] hover:bg-white'
