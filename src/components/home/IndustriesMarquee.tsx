@@ -115,7 +115,7 @@ export const IndustriesMarquee = () => {
   return (
     <section
       id="industries"
-      className="relative overflow-hidden bg-gray-50 dark:bg-night-950 py-20 md:py-32 border-y border-gray-200 dark:border-white/5"
+      className="relative overflow-hidden bg-gray-50 dark:bg-night-950 py-20 md:py-32"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-8%] left-1/2 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-brand-500/8 blur-3xl" />

@@ -14,7 +14,7 @@ export const Insights = () => {
     ];
 
     return (
-        <section id="insights" className="py-32 bg-gray-50 dark:bg-night-800 border-t border-gray-100 dark:border-night-700">
+        <section id="insights" className="py-32 bg-gray-50 dark:bg-night-800">
             <motion.div initial={{ opacity: 0, y: -50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, type: "spring" }} className="container mx-auto px-6 max-w-7xl">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20">
                     <div className="max-w-xl">
