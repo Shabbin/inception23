@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-playfair)", "serif"],
+         sans: ['var(--font-poppins)'],
+        serif: ['var(--font-playfair)'],
       },
       colors: {
         brand: {
