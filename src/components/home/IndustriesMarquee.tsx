@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import {
   FinTechIllustration,
@@ -9,7 +10,7 @@ import {
   EnergyIllustration,
   HealthIllustration,
 } from '@/components/ui/Illustrations';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowUpRight,
   Sparkles,
@@ -19,8 +20,36 @@ import {
   Cpu,
 } from 'lucide-react';
 
+const useIsMobileAnimation = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const update = () => {
+      setIsMobile(mediaQuery.matches || !!prefersReducedMotion);
+    };
+
+    update();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', update);
+      return () => mediaQuery.removeEventListener('change', update);
+    } else {
+      mediaQuery.addListener(update);
+      return () => mediaQuery.removeListener(update);
+    }
+  }, [prefersReducedMotion]);
+
+  return isMobile;
+};
+
 export const IndustriesMarquee = () => {
   const { lang } = useAppStore();
+  const isMobile = useIsMobileAnimation();
 
   const industries = [
     {
@@ -118,18 +147,18 @@ export const IndustriesMarquee = () => {
       className="relative overflow-hidden bg-gray-50 dark:bg-night-950 py-20 md:py-32"
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[-8%] left-1/2 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-brand-500/8 blur-3xl" />
-        <div className="absolute top-[32%] left-[6%] h-64 w-64 rounded-full bg-cyan-500/5 blur-3xl" />
-        <div className="absolute bottom-[8%] right-[8%] h-72 w-72 rounded-full bg-violet-500/5 blur-3xl" />
+        <div className="hidden md:block absolute top-[-8%] left-1/2 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-brand-500/8 blur-3xl" />
+        <div className="hidden md:block absolute top-[32%] left-[6%] h-64 w-64 rounded-full bg-cyan-500/5 blur-3xl" />
+        <div className="hidden md:block absolute bottom-[8%] right-[8%] h-72 w-72 rounded-full bg-violet-500/5 blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_60%)]" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={isMobile ? { opacity: 0, y: 12 } : { opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7 }}
+          viewport={isMobile ? { once: true, margin: '-30px' } : { once: true, margin: '-80px' }}
+          transition={isMobile ? { duration: 0.35, ease: 'easeOut' } : { duration: 0.7 }}
           className="max-w-4xl mx-auto text-center mb-12 md:mb-20"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/5 px-4 py-2 mb-6">
@@ -151,13 +180,13 @@ export const IndustriesMarquee = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={isMobile ? { opacity: 0, y: 14 } : { opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.75 }}
+          viewport={isMobile ? { once: true, margin: '-30px' } : { once: true, margin: '-80px' }}
+          transition={isMobile ? { duration: 0.35, ease: 'easeOut' } : { duration: 0.75 }}
           className="mb-8 md:mb-12"
         >
-          <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)]">
+          <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] md:backdrop-blur-xl shadow-[0_24px_80px_-32px_rgba(0,0,0,0.45)]">
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-violet-500/10 to-emerald-400/10" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.22),transparent_25%)]" />
 
@@ -202,29 +231,49 @@ export const IndustriesMarquee = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                  {capabilityPillars.map((pillar, index) => (
-                    <motion.div
-                      key={pillar.title.en}
-                      initial={{ opacity: 0, y: 18 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-80px' }}
-                      transition={{ duration: 0.45, delay: index * 0.08 }}
-                      className="relative overflow-hidden rounded-[1.4rem] md:rounded-[1.6rem] border border-gray-200 dark:border-white/10 bg-white/75 dark:bg-white/[0.05] backdrop-blur-md p-4 md:p-6 shadow-sm"
-                    >
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_30%)]" />
-                      <div className="relative z-10">
-                        <div className="mb-4 md:mb-5 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04]">
-                          <pillar.icon className="h-5 w-5 text-brand-700 dark:text-brand-400" />
+                  {capabilityPillars.map((pillar, index) =>
+                    isMobile ? (
+                      <div
+                        key={pillar.title.en}
+                        className="relative overflow-hidden rounded-[1.4rem] md:rounded-[1.6rem] border border-gray-200 dark:border-white/10 bg-white/75 dark:bg-white/[0.05] p-4 md:p-6 shadow-sm"
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_30%)]" />
+                        <div className="relative z-10">
+                          <div className="mb-4 md:mb-5 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04]">
+                            <pillar.icon className="h-5 w-5 text-brand-700 dark:text-brand-400" />
+                          </div>
+                          <h5 className="text-base md:text-lg font-semibold text-brand-950 dark:text-white">
+                            {lang === 'en' ? pillar.title.en : pillar.title.bn}
+                          </h5>
+                          <p className="mt-2.5 md:mt-3 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400">
+                            {lang === 'en' ? pillar.text.en : pillar.text.bn}
+                          </p>
                         </div>
-                        <h5 className="text-base md:text-lg font-semibold text-brand-950 dark:text-white">
-                          {lang === 'en' ? pillar.title.en : pillar.title.bn}
-                        </h5>
-                        <p className="mt-2.5 md:mt-3 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400">
-                          {lang === 'en' ? pillar.text.en : pillar.text.bn}
-                        </p>
                       </div>
-                    </motion.div>
-                  ))}
+                    ) : (
+                      <motion.div
+                        key={pillar.title.en}
+                        initial={{ opacity: 0, y: 18 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.45, delay: index * 0.08 }}
+                        className="relative overflow-hidden rounded-[1.4rem] md:rounded-[1.6rem] border border-gray-200 dark:border-white/10 bg-white/75 dark:bg-white/[0.05] md:backdrop-blur-md p-4 md:p-6 shadow-sm"
+                      >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_30%)]" />
+                        <div className="relative z-10">
+                          <div className="mb-4 md:mb-5 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04]">
+                            <pillar.icon className="h-5 w-5 text-brand-700 dark:text-brand-400" />
+                          </div>
+                          <h5 className="text-base md:text-lg font-semibold text-brand-950 dark:text-white">
+                            {lang === 'en' ? pillar.title.en : pillar.title.bn}
+                          </h5>
+                          <p className="mt-2.5 md:mt-3 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400">
+                            {lang === 'en' ? pillar.text.en : pillar.text.bn}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -248,49 +297,86 @@ export const IndustriesMarquee = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
-          {industries.map((industry, index) => (
-            <motion.div
-              key={industry.name.en}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, delay: index * 0.05 }}
-              className="group"
-            >
-              <div className="relative h-full overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl p-5 sm:p-6 md:p-7 shadow-sm hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1">
-                <div
-                  className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${industry.accent}`}
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_28%)] opacity-60" />
+          {industries.map((industry, index) =>
+            isMobile ? (
+              <div key={industry.name.en} className="group">
+                <div className="relative h-full overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] p-5 sm:p-6 md:p-7 shadow-sm transition-all duration-500">
+                  <div
+                    className={`absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${industry.accent}`}
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_28%)] opacity-60" />
 
-                <div className="relative z-10 flex h-full flex-col">
-                  <div className="mb-5 md:mb-7 flex items-start justify-between gap-4">
-                    <div className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] shadow-sm group-hover:scale-105 transition-transform duration-500">
-                      <industry.icon className="h-9 w-9 md:h-10 md:w-10 drop-shadow-sm" />
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="mb-5 md:mb-7 flex items-start justify-between gap-4">
+                      <div className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] shadow-sm md:group-hover:scale-105 transition-transform duration-500">
+                        <industry.icon className="h-9 w-9 md:h-10 md:w-10 drop-shadow-sm" />
+                      </div>
+
+                      <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-brand-950 dark:text-white transition-transform duration-500 md:group-hover:translate-x-1 md:group-hover:-translate-y-1">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </div>
                     </div>
 
-                    <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-brand-950 dark:text-white transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
-                      <ArrowUpRight className="h-4 w-4" />
+                    <div className="mb-2.5 md:mb-3 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] md:tracking-[0.18em] text-brand-900 dark:text-brand-300 leading-5 break-words">
+                      {lang === 'en' ? industry.eyebrow.en : industry.eyebrow.bn}
                     </div>
+
+                    <h5 className="font-serif font-bold text-[1.75rem] sm:text-[1.9rem] md:text-2xl leading-tight text-brand-950 dark:text-white">
+                      {lang === 'en' ? industry.name.en : industry.name.bn}
+                    </h5>
+
+                    <p className="mt-3 md:mt-4 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400 flex-grow">
+                      {lang === 'en' ? industry.description.en : industry.description.bn}
+                    </p>
+
+                    <div className="mt-5 md:mt-6 h-[2px] w-10 bg-brand-600 dark:bg-brand-500 transition-all duration-500 md:group-hover:w-24" />
                   </div>
-
-                  <div className="mb-2.5 md:mb-3 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] md:tracking-[0.18em] text-brand-900 dark:text-brand-300 leading-5 break-words">
-                    {lang === 'en' ? industry.eyebrow.en : industry.eyebrow.bn}
-                  </div>
-
-                  <h5 className="font-serif font-bold text-[1.75rem] sm:text-[1.9rem] md:text-2xl leading-tight text-brand-950 dark:text-white">
-                    {lang === 'en' ? industry.name.en : industry.name.bn}
-                  </h5>
-
-                  <p className="mt-3 md:mt-4 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400 flex-grow">
-                    {lang === 'en' ? industry.description.en : industry.description.bn}
-                  </p>
-
-                  <div className="mt-5 md:mt-6 h-[2px] w-10 bg-brand-600 dark:bg-brand-500 transition-all duration-500 group-hover:w-24" />
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ) : (
+              <motion.div
+                key={industry.name.en}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.55, delay: index * 0.05 }}
+                className="group"
+              >
+                <div className="relative h-full overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] md:backdrop-blur-xl p-5 sm:p-6 md:p-7 shadow-sm hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] transition-all duration-500 hover:-translate-y-1">
+                  <div
+                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${industry.accent}`}
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_28%)] opacity-60" />
+
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="mb-5 md:mb-7 flex items-start justify-between gap-4">
+                      <div className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.04] shadow-sm group-hover:scale-105 transition-transform duration-500">
+                        <industry.icon className="h-9 w-9 md:h-10 md:w-10 drop-shadow-sm" />
+                      </div>
+
+                      <div className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-brand-950 dark:text-white transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </div>
+                    </div>
+
+                    <div className="mb-2.5 md:mb-3 text-[11px] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] md:tracking-[0.18em] text-brand-900 dark:text-brand-300 leading-5 break-words">
+                      {lang === 'en' ? industry.eyebrow.en : industry.eyebrow.bn}
+                    </div>
+
+                    <h5 className="font-serif font-bold text-[1.75rem] sm:text-[1.9rem] md:text-2xl leading-tight text-brand-950 dark:text-white">
+                      {lang === 'en' ? industry.name.en : industry.name.bn}
+                    </h5>
+
+                    <p className="mt-3 md:mt-4 text-sm leading-6 md:leading-7 text-gray-600 dark:text-gray-400 flex-grow">
+                      {lang === 'en' ? industry.description.en : industry.description.bn}
+                    </p>
+
+                    <div className="mt-5 md:mt-6 h-[2px] w-10 bg-brand-600 dark:bg-brand-500 transition-all duration-500 group-hover:w-24" />
+                  </div>
+                </div>
+              </motion.div>
+            )
+          )}
         </div>
       </div>
     </section>
