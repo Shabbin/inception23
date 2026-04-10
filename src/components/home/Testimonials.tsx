@@ -1,83 +1,369 @@
 'use client';
+
+import { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Quote, Sparkles } from 'lucide-react';
 
 export const Testimonials = () => {
-    const { lang } = useAppStore();
-    const [idx, setIdx] = useState(0);
+  const { lang, theme } = useAppStore();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    const quotes = [
-        { quote: { en: "Inception 23 didn't just advise us—they re-engineered our entire operational architecture, unlocking $200M in trapped value.", bn: "তারা শুধু আমাদের উপদেশ দেয়নি—তারা আমাদের সম্পূর্ণ কর্মক্ষমতা পুনর্গঠন করেছে।" }, author: "Sarah Jenkins", role: "CEO, NexaGlobal Group" },
-        { quote: { en: "Their legal defense strategy during our global restructuring was nothing short of legendary. Absolute precision.", bn: "কর্পোরেট আইনি প্রতিরক্ষায় কর্তৃপক্ষের দক্ষতা কল্পনাতীত।" }, author: "David Chen", role: "Chief Counsel, Titan Energy" },
-        { quote: { en: "The AI transformation they deployed took us from an analog legacy player to a digital-first market leader in 18 months.", bn: "তাদের এআই রূপান্তর আমাদের ১৮ মাসের মধ্যে আধুনিক ডিজিটাল লিডারে পরিণত করেছে।" }, author: "Elena Rostova", role: "CTO, FinVault Banking" }
-    ];
+  const isLight = theme === 'light';
 
-    const paginate = (newDirection: number) => {
-        setIdx((prev) => (prev + newDirection + quotes.length) % quotes.length);
-    };
+  const testimonials = [
+    {
+      quote: {
+        en: 'Their legal defense strategy during our global restructuring was nothing short of legendary. Absolute precision.',
+        bn: 'আমাদের বৈশ্বিক পুনর্গঠনের সময় তাদের আইনি প্রতিরক্ষা কৌশল ছিল অসাধারণ। নিখুঁত নির্ভুলতা।',
+      },
+      name: 'David Chen',
+      role: {
+        en: 'Chief Counsel, Titan Energy',
+        bn: 'চিফ কাউন্সেল, টাইটান এনার্জি',
+      },
+      category: {
+        en: 'Global Restructuring',
+        bn: 'বৈশ্বিক পুনর্গঠন',
+      },
+      outcome: {
+        en: 'Cross-border legal stabilization',
+        bn: 'ক্রস-বর্ডার আইনি স্থিতিশীলতা',
+      },
+    },
+    {
+      quote: {
+        en: 'They brought structure, speed, and confidence into a highly regulated transformation program. The execution quality was exceptional.',
+        bn: 'অত্যন্ত নিয়ন্ত্রিত রূপান্তর কর্মসূচিতে তারা কাঠামো, গতি এবং আস্থা নিয়ে এসেছে। বাস্তবায়নের মান ছিল অসাধারণ।',
+      },
+      name: 'Amira Solberg',
+      role: {
+        en: 'Transformation Director, NorthAxis Capital',
+        bn: 'ট্রান্সফরমেশন ডিরেক্টর, নর্থঅ্যাক্সিস ক্যাপিটাল',
+      },
+      category: {
+        en: 'Regulatory Transformation',
+        bn: 'নিয়ন্ত্রক রূপান্তর',
+      },
+      outcome: {
+        en: 'Governance-led modernization',
+        bn: 'গভর্নেন্স-নির্ভর আধুনিকায়ন',
+      },
+    },
+    {
+      quote: {
+        en: 'From strategic assessment to implementation, their team operated with rare clarity. We saw immediate operational lift.',
+        bn: 'কৌশলগত মূল্যায়ন থেকে বাস্তবায়ন পর্যন্ত, তাদের দল বিরল স্বচ্ছতার সঙ্গে কাজ করেছে। আমরা তাৎক্ষণিক অপারেশনাল উন্নতি দেখেছি।',
+      },
+      name: 'Sophia Rahman',
+      role: {
+        en: 'COO, Meridian Manufacturing Group',
+        bn: 'সিওও, মেরিডিয়ান ম্যানুফ্যাকচারিং গ্রুপ',
+      },
+      category: {
+        en: 'Operational Excellence',
+        bn: 'অপারেশনাল উৎকর্ষতা',
+      },
+      outcome: {
+        en: 'Immediate efficiency improvement',
+        bn: 'তাৎক্ষণিক দক্ষতা উন্নতি',
+      },
+    },
+  ];
 
-    return (
-        <section className="py-20 md:py-40 bg-white dark:bg-brand-950 text-brand-950 dark:text-white overflow-hidden relative border-t border-gray-200 dark:border-white/10">
-            {/* Structural Typography */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-serif font-black text-black/5 dark:text-white/5 select-none pointer-events-none tracking-tighter mix-blend-overlay">
-                PROOF
+  const current = testimonials[activeIndex];
+
+  const goPrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const goNext = () => {
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <section
+      id="testimonials"
+      className={`relative overflow-hidden py-24 md:py-32 transition-colors duration-500 ${
+        isLight ? 'bg-[#f6f8fc]' : 'bg-[#14001f]'
+      }`}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className={`absolute left-1/2 top-0 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full blur-3xl ${
+            isLight ? 'bg-brand-500/8' : 'bg-brand-500/10'
+          }`}
+        />
+        <div
+          className={`absolute left-[8%] top-[26%] h-72 w-72 rounded-full blur-3xl ${
+            isLight ? 'bg-fuchsia-500/6' : 'bg-fuchsia-500/5'
+          }`}
+        />
+        <div
+          className={`absolute bottom-[8%] right-[8%] h-80 w-80 rounded-full blur-3xl ${
+            isLight ? 'bg-violet-500/6' : 'bg-violet-500/5'
+          }`}
+        />
+        <div
+          className={`absolute inset-0 ${
+            isLight
+              ? 'bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.55),transparent_60%)]'
+              : 'bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_60%)]'
+          }`}
+        />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-6">
+        <div className="mb-14 grid grid-cols-1 gap-8 lg:mb-20 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-4xl">
+            <div
+              className={`mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 ${
+                isLight ? 'bg-brand-500/8' : 'bg-white/[0.04]'
+              }`}
+            >
+              <Sparkles size={14} className="text-brand-400" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-brand-400">
+                {lang === 'en' ? 'Client Endorsements' : 'ক্লায়েন্ট এনডোর্সমেন্ট'}
+              </span>
             </div>
 
-            <div className="container mx-auto px-6 max-w-5xl relative z-10">
-                <div className="flex justify-between items-end mb-24">
-                    <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }}>
-                        <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-brand-600 dark:text-brand-400 mb-6">{lang === 'en' ? 'Client Endorsements' : 'ক্লায়েন্ট অনুমোদন'}</h2>
-                        <h3 className="text-4xl md:text-5xl font-serif font-bold max-w-xl leading-tight">
-                            {lang === 'en' ? 'Track Record of Total Dominance.' : 'সাফল্যের ধারাবাহিকতা।'}
-                        </h3>
-                    </motion.div>
-                    <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} className="hidden md:flex gap-4">
-                        <button onClick={() => paginate(-1)} className="w-14 h-14 rounded-full border border-gray-300 dark:border-white/20 flex items-center justify-center hover:bg-brand-950 hover:border-brand-950 hover:text-white dark:hover:bg-white dark:hover:text-brand-950 transition-colors group">
-                            <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-                        </button>
-                        <button onClick={() => paginate(1)} className="w-14 h-14 rounded-full border border-gray-300 dark:border-white/20 flex items-center justify-center hover:bg-brand-950 hover:border-brand-950 hover:text-white dark:hover:bg-white dark:hover:text-brand-950 transition-colors group">
-                            <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </motion.div>
-                </div>
+            <h2
+              className={`font-serif text-4xl font-bold leading-[0.96] tracking-[-0.03em] md:text-6xl lg:text-7xl ${
+                isLight ? 'text-[#111c34]' : 'text-white'
+              }`}
+            >
+              {lang === 'en'
+                ? 'Credibility built through discretion, precision, and results.'
+                : 'গোপনীয়তা, নির্ভুলতা এবং ফলাফলের মাধ্যমে নির্মিত বিশ্বাসযোগ্যতা।'}
+            </h2>
+          </div>
 
-                <div className="relative min-h-[400px]">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, x: 100, filter: "blur(10px)" }}
-                            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, x: -100, filter: "blur(10px)" }}
-                            transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-                            className="absolute inset-0 flex flex-col justify-center"
+          <div className="flex items-center gap-3">
+            <button
+              onClick={goPrev}
+              className={`group flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${
+                isLight
+                  ? 'bg-white text-[#111c34] shadow-[0_8px_30px_rgba(15,23,42,0.08)] hover:bg-slate-50'
+                  : 'bg-white/[0.05] text-white/90 hover:bg-white/[0.1]'
+              }`}
+              aria-label="Previous testimonial"
+            >
+              <ArrowLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
+            </button>
+
+            <button
+              onClick={goNext}
+              className={`group flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${
+                isLight
+                  ? 'bg-white text-[#111c34] shadow-[0_8px_30px_rgba(15,23,42,0.08)] hover:bg-slate-50'
+                  : 'bg-white/[0.05] text-white/90 hover:bg-white/[0.1]'
+              }`}
+              aria-label="Next testimonial"
+            >
+              <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          className={`relative overflow-hidden rounded-[2rem] backdrop-blur-xl md:rounded-[2.5rem] ${
+            isLight
+              ? 'bg-white/85 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.18)]'
+              : 'bg-white/[0.035] shadow-[0_30px_90px_-40px_rgba(0,0,0,0.6)]'
+          }`}
+        >
+          <div
+            className={`absolute inset-0 ${
+              isLight
+                ? 'bg-[linear-gradient(135deg,rgba(255,255,255,0.8),transparent_28%,transparent_72%,rgba(124,58,237,0.06))]'
+                : 'bg-[linear-gradient(135deg,rgba(255,255,255,0.06),transparent_28%,transparent_72%,rgba(124,58,237,0.08))]'
+            }`}
+          />
+          <div
+            className={`absolute inset-x-0 top-0 h-px ${
+              isLight
+                ? 'bg-gradient-to-r from-transparent via-slate-200 to-transparent'
+                : 'bg-gradient-to-r from-transparent via-white/12 to-transparent'
+            }`}
+          />
+
+          <div className="relative grid grid-cols-1 gap-8 p-6 md:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:p-14">
+            <div className="min-w-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.32 }}
+                >
+                  <div className="mb-8 flex items-center gap-4">
+                    <div
+                      className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                        isLight ? 'bg-brand-500/8 text-brand-600' : 'bg-white/[0.05] text-brand-300'
+                      }`}
+                    >
+                      <Quote size={24} />
+                    </div>
+
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-brand-400">
+                        {lang === 'en' ? current.category.en : current.category.bn}
+                      </p>
+                      <div className="mt-2 h-px w-20 bg-gradient-to-r from-brand-500 to-transparent" />
+                    </div>
+                  </div>
+
+                  <blockquote
+                    className={`max-w-5xl font-serif text-[2.1rem] leading-[1.02] tracking-[-0.035em] md:text-5xl lg:text-[5rem] ${
+                      isLight ? 'text-[#111c34]' : 'text-white'
+                    }`}
+                  >
+                    “{lang === 'en' ? current.quote.en : current.quote.bn}”
+                  </blockquote>
+
+                  <div className="mt-10 md:mt-12">
+                    <div className={`h-px w-full ${isLight ? 'bg-slate-200' : 'bg-white/8'}`} />
+                    <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                      <div>
+                        <p
+                          className={`text-xl font-bold uppercase tracking-[0.12em] md:text-2xl ${
+                            isLight ? 'text-[#111c34]' : 'text-white'
+                          }`}
                         >
-                            <Quote className="text-brand-500/20 dark:text-brand-500/50 mb-8" size={64} />
-                            <p className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-snug mb-16 max-w-4xl">
-                                &quot;{lang === 'en' ? quotes[idx].quote.en : quotes[idx].quote.bn}&quot;
-                            </p>
-                            <div className="flex items-center gap-6">
-                                <div className="w-16 h-[1px] bg-brand-500"></div>
-                                <div>
-                                    <h4 className="font-bold text-xl uppercase tracking-widest">{quotes[idx].author}</h4>
-                                    <p className="text-brand-600 dark:text-brand-300 text-sm mt-2">{quotes[idx].role}</p>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-                
-                {/* Mobile controls */}
-                <div className="flex md:hidden gap-4 mt-16">
-                    <button onClick={() => paginate(-1)} className="w-12 h-12 rounded-full border border-gray-300 dark:border-white/20 flex items-center justify-center hover:bg-brand-950 hover:text-white dark:hover:bg-white dark:hover:text-brand-950 transition-colors">
-                        <ChevronLeft size={20} />
-                    </button>
-                    <button onClick={() => paginate(1)} className="w-12 h-12 rounded-full border border-gray-300 dark:border-white/20 flex items-center justify-center hover:bg-brand-950 hover:text-white dark:hover:bg-white dark:hover:text-brand-950 transition-colors">
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
+                          {current.name}
+                        </p>
+                        <p className={`mt-2 text-sm md:text-base ${isLight ? 'text-brand-700' : 'text-brand-300'}`}>
+                          {lang === 'en' ? current.role.en : current.role.bn}
+                        </p>
+                      </div>
+
+                      <div
+                        className={`rounded-2xl px-4 py-3 ${
+                          isLight ? 'bg-slate-50' : 'bg-white/[0.04]'
+                        }`}
+                      >
+                        <p
+                          className={`text-[10px] font-bold uppercase tracking-[0.22em] ${
+                            isLight ? 'text-slate-400' : 'text-white/45'
+                          }`}
+                        >
+                          {lang === 'en' ? 'Outcome' : 'ফলাফল'}
+                        </p>
+                        <p
+                          className={`mt-2 text-sm font-medium ${
+                            isLight ? 'text-[#111c34]' : 'text-white/85'
+                          }`}
+                        >
+                          {lang === 'en' ? current.outcome.en : current.outcome.bn}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
-        </section>
-    );
+
+            <div className="flex flex-col justify-between gap-6">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
+                {testimonials.map((item, i) => {
+                  const isActive = i === activeIndex;
+
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setActiveIndex(i)}
+                      className={`rounded-[1.5rem] p-4 text-left transition-all duration-300 ${
+                        isLight
+                          ? isActive
+                            ? 'bg-white shadow-[0_18px_40px_-28px_rgba(15,23,42,0.18)]'
+                            : 'bg-slate-50/80 hover:bg-white'
+                          : isActive
+                            ? 'bg-white/[0.08] shadow-[0_20px_40px_-30px_rgba(124,58,237,0.45)]'
+                            : 'bg-white/[0.03] hover:bg-white/[0.05]'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-400">
+                            {lang === 'en' ? item.category.en : item.category.bn}
+                          </p>
+                          <p
+                            className={`mt-3 line-clamp-3 font-serif text-lg leading-tight ${
+                              isLight ? 'text-[#111c34]' : 'text-white'
+                            }`}
+                          >
+                            “{lang === 'en' ? item.quote.en : item.quote.bn}”
+                          </p>
+                        </div>
+
+                        <div
+                          className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full transition-all duration-300 ${
+                            isActive
+                              ? 'bg-brand-500 shadow-[0_0_18px_rgba(124,58,237,0.7)]'
+                              : isLight
+                                ? 'bg-slate-300'
+                                : 'bg-white/18'
+                          }`}
+                        />
+                      </div>
+
+                      <div className="mt-5">
+                        <p
+                          className={`text-sm font-bold uppercase tracking-[0.12em] ${
+                            isLight ? 'text-[#111c34]' : 'text-white'
+                          }`}
+                        >
+                          {item.name}
+                        </p>
+                        <p
+                          className={`mt-1 text-sm ${
+                            isLight ? 'text-slate-500' : 'text-white/55'
+                          }`}
+                        >
+                          {lang === 'en' ? item.role.en : item.role.bn}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="pt-2">
+                <div className="mb-4 flex items-center justify-between">
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-[0.22em] ${
+                      isLight ? 'text-slate-400' : 'text-white/40'
+                    }`}
+                  >
+                    {lang === 'en' ? 'Selected testimonial' : 'নির্বাচিত টেস্টিমোনিয়াল'}
+                  </span>
+                  <span className={`text-sm ${isLight ? 'text-slate-500' : 'text-white/55'}`}>
+                    {String(activeIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <div className="flex gap-2">
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveIndex(i)}
+                      aria-label={`Go to testimonial ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === activeIndex
+                          ? 'w-16 bg-brand-500'
+                          : isLight
+                            ? 'w-8 bg-slate-300 hover:bg-slate-400'
+                            : 'w-8 bg-white/12 hover:bg-white/22'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };

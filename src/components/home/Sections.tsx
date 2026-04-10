@@ -1,7 +1,7 @@
 'use client';
 import { useAppStore } from '@/lib/store';
 import { motion } from 'framer-motion';
-import { TrendingUp, BarChart, ShieldCheck, Target, Lightbulb, Rocket, Lock } from 'lucide-react';
+import { TrendingUp, BarChart, ShieldCheck, Target, Lightbulb, Rocket, Lock, ArrowRight, Building2, Mail, User, BriefcaseBusiness, FileText, ChevronDown } from 'lucide-react';
 import { RichIcon } from '@/components/ui/RichIcon';
 import { FinTechIllustration, PublicSectorIllustration, ManufacturingIllustration, TechIllustration, EnergyIllustration, HealthIllustration } from '@/components/ui/Illustrations';
 
@@ -36,22 +36,107 @@ export const Industries = () => {
 
 export const Proof = () => {
     const { lang } = useAppStore();
+
+    const stats = [
+        {
+            val: '$50B+',
+            label: { en: 'Assets Advised', bn: 'উপদেষ্টা সম্পদ' },
+            desc: {
+                en: 'Capital, transaction, and strategic mandates supported across large-scale engagements.',
+                bn: 'বৃহৎ পরিসরের এনগেজমেন্টে মূলধন, লেনদেন এবং কৌশলগত ম্যান্ডেট সহায়তা।'
+            },
+            icon: TrendingUp,
+            theme: 'emerald'
+        },
+        {
+            val: '30%',
+            label: { en: 'Avg. Efficiency Gain', bn: 'গড় দক্ষতা বৃদ্ধি' },
+            desc: {
+                en: 'Measured operational improvements delivered through restructuring and optimization.',
+                bn: 'পুনর্গঠন ও অপ্টিমাইজেশনের মাধ্যমে পরিমাপযোগ্য অপারেশনাল উন্নতি।'
+            },
+            icon: BarChart,
+            theme: 'blue'
+        },
+        {
+            val: '100%',
+            label: { en: 'Regulatory Compliance', bn: 'নিয়ন্ত্রক সম্মতি' },
+            desc: {
+                en: 'Governance-first execution designed for regulated and high-stakes environments.',
+                bn: 'নিয়ন্ত্রিত ও উচ্চ-ঝুঁকিপূর্ণ পরিবেশের জন্য গভর্নেন্স-প্রথম বাস্তবায়ন।'
+            },
+            icon: ShieldCheck,
+            theme: 'purple'
+        }
+    ];
+
     return (
-        <section id="proof" className="py-16 md:py-24 bg-white dark:bg-night-950 relative overflow-hidden border-t border-gray-100 dark:border-night-800">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,transparent_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_100%)] pointer-events-none"></div>
-            <motion.div initial={{ opacity: 0, y: -50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.8, type: "spring", delay: 0.1 }} suppressHydrationWarning className="container mx-auto px-6 relative z-10">
-                <div suppressHydrationWarning className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200 dark:divide-white/10">
-                    {[
-                        { val: "$50B+", label: { en: "Assets Advised", bn: "উপদেষ্টা সম্পদ" }, icon: TrendingUp, theme: 'emerald' },
-                        { val: "30%", label: { en: "Avg. Efficiency Gain", bn: "গড় দক্ষতা বৃদ্ধি" }, icon: BarChart, theme: 'blue' },
-                        { val: "100%", label: { en: "Regulatory Compliance", bn: "নিয়ন্ত্রক সম্মতি" }, icon: ShieldCheck, theme: 'purple' }
-                    ].map((stat, i) => (
-                        <motion.div initial={{ scale: 0.5, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: false }} transition={{ delay: i * 0.15, type: "spring", stiffness: 150, damping: 12 }} suppressHydrationWarning key={i} className="pt-8 md:pt-0 px-4 md:px-8 flex flex-col items-center">
-                            <div suppressHydrationWarning className="flex flex-col items-center justify-center gap-4 md:gap-6 mb-4">
-                                <RichIcon icon={stat.icon} theme={stat.theme} />
-                                <div suppressHydrationWarning className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-brand-700 to-brand-400 dark:from-white dark:to-brand-200">{stat.val}</div>
+        <section id="proof" className="py-20 md:py-28 bg-white dark:bg-night-950 relative overflow-hidden border-t border-gray-100 dark:border-night-800">
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[42rem] h-[42rem] bg-brand-500/5 rounded-full blur-3xl" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,transparent_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_100%)]" />
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: -40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.8, type: "spring", delay: 0.1 }}
+                suppressHydrationWarning
+                className="container mx-auto px-6 relative z-10"
+            >
+                <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
+                    <h2 className="text-xs md:text-sm font-bold uppercase tracking-[0.28em] text-brand-600 dark:text-brand-400 mb-5">
+                        {lang === 'en' ? 'Proof of Impact' : 'প্রভাবের প্রমাণ'}
+                    </h2>
+                    <h3 className="text-3xl md:text-5xl font-serif font-bold text-brand-950 dark:text-white mb-5 leading-tight">
+                        {lang === 'en' ? 'Measured Outcomes. Premium Execution.' : 'পরিমাপযোগ্য ফলাফল। প্রিমিয়াম বাস্তবায়ন।'}
+                    </h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg leading-relaxed">
+                        {lang === 'en'
+                            ? 'Our engagement model is built to deliver strategic clarity, operational lift, and dependable regulatory discipline.'
+                            : 'আমাদের এনগেজমেন্ট মডেল কৌশলগত স্বচ্ছতা, অপারেশনাল উন্নতি এবং নির্ভরযোগ্য নিয়ন্ত্রক শৃঙ্খলা প্রদানের জন্য নির্মিত।'}
+                    </p>
+                </div>
+
+                <div suppressHydrationWarning className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    {stats.map((stat, i) => (
+                        <motion.div
+                            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: false }}
+                            transition={{ delay: i * 0.12, type: "spring", stiffness: 140, damping: 16 }}
+                            suppressHydrationWarning
+                            key={i}
+                            className="group relative overflow-hidden rounded-[2rem] border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.04] backdrop-blur-md p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.04)] dark:shadow-none hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_60px_rgba(124,58,237,0.08)] transition-all duration-500"
+                        >
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-brand-50/60 to-transparent dark:from-brand-900/10 dark:to-transparent" />
+
+                            <div suppressHydrationWarning className="relative z-10 flex flex-col items-start">
+                                <div className="mb-7">
+                                    <RichIcon icon={stat.icon} theme={stat.theme} />
+                                </div>
+
+                                <div
+                                    suppressHydrationWarning
+                                    className="text-[2.75rem] sm:text-5xl lg:text-6xl font-serif font-bold text-brand-950 dark:text-white tracking-tight leading-none"
+                                >
+                                    {stat.val}
+                                </div>
+
+                                <div
+                                    suppressHydrationWarning
+                                    className="mt-4 text-sm font-bold uppercase tracking-[0.22em] text-brand-600 dark:text-brand-400"
+                                >
+                                    {lang === 'en' ? stat.label.en : stat.label.bn}
+                                </div>
+
+                                <div className="mt-5 h-[2px] w-14 bg-brand-500/70 group-hover:w-24 transition-all duration-500" />
+
+                                <p className="mt-5 text-sm md:text-[15px] leading-7 text-gray-500 dark:text-gray-400">
+                                    {lang === 'en' ? stat.desc.en : stat.desc.bn}
+                                </p>
                             </div>
-                            <div suppressHydrationWarning className="text-sm font-bold uppercase tracking-widest text-brand-600 dark:text-brand-400">{lang === 'en' ? stat.label.en : stat.label.bn}</div>
                         </motion.div>
                     ))}
                 </div>
@@ -62,21 +147,200 @@ export const Proof = () => {
 
 export const InquiryForm = () => {
     const { lang } = useAppStore();
+
+    const inquiryTypes = [
+        { en: 'Strategic Advisory', bn: 'কৌশলগত পরামর্শ' },
+        { en: 'Legal Support', bn: 'আইনি সহায়তা' },
+        { en: 'Technology Solutions', bn: 'প্রযুক্তি সমাধান' },
+        { en: 'Confidential Discussion', bn: 'গোপনীয় আলোচনা' }
+    ];
+
     return (
-        <section className="py-32 bg-white dark:bg-night-900 overflow-hidden">
-            <motion.div initial={{ opacity: 0, y: -50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: "-100px" }} transition={{ duration: 0.8, type: "spring" }} suppressHydrationWarning className="container mx-auto px-6 max-w-4xl">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-brand-950 dark:text-white">{lang === 'en' ? 'Confidential Inquiry' : 'গোপনীয় অনুসন্ধান'}</h2>
-                    <p className="text-gray-500 dark:text-gray-400">{lang === 'en' ? 'Reach our senior partners directly.' : 'সরাসরি যোগাযোগ করুন।'}</p>
-                </div>
-                <form className="bg-gray-50 dark:bg-night-800 p-8 md:p-16 border border-gray-100 dark:border-night-700 shadow-2xl dark:shadow-none space-y-8 rounded-xl" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <input type="text" className="w-full p-4 bg-white dark:bg-night-900 border border-gray-200 dark:border-night-600 focus:border-brand-700 dark:focus:border-brand-500 outline-none transition-colors dark:text-white rounded-md" placeholder={lang === 'en' ? "Name" : "নাম"} required />
-                        <input type="email" className="w-full p-4 bg-white dark:bg-night-900 border border-gray-200 dark:border-night-600 focus:border-brand-700 dark:focus:border-brand-500 outline-none transition-colors dark:text-white rounded-md" placeholder={lang === 'en' ? "Work Email" : "ইমেইল"} required />
+        <section className="relative overflow-hidden bg-white dark:bg-night-900 py-24 md:py-32">
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[44rem] h-[44rem] bg-brand-500/5 rounded-full blur-3xl" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,transparent_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_100%)]" />
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-100px" }}
+                transition={{ duration: 0.8, type: "spring" }}
+                suppressHydrationWarning
+                className="container mx-auto px-6 max-w-7xl relative z-10"
+            >
+                <div className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-start">
+                    <div className="xl:sticky xl:top-28">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/5 px-4 py-2 mb-6">
+                            <Lock size={14} className="text-brand-600 dark:text-brand-400" />
+                            <span className="text-[11px] font-bold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-400">
+                                {lang === 'en' ? 'Confidential Inquiry' : 'গোপনীয় অনুসন্ধান'}
+                            </span>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-brand-950 dark:text-white leading-[1.02] tracking-tight">
+                            {lang === 'en' ? 'Begin a private conversation with our senior team.' : 'আমাদের সিনিয়র টিমের সাথে একটি ব্যক্তিগত আলোচনা শুরু করুন।'}
+                        </h2>
+
+                        <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg leading-8 max-w-xl mb-8">
+                            {lang === 'en'
+                                ? 'Share your mandate, challenge, or objective with discretion. We review all submissions directly and respond through an appropriately secure channel.'
+                                : 'গোপনীয়তার সঙ্গে আপনার প্রয়োজন, চ্যালেঞ্জ বা উদ্দেশ্য শেয়ার করুন। আমরা প্রতিটি জমা সরাসরি পর্যালোচনা করি এবং উপযুক্ত নিরাপদ মাধ্যমে সাড়া দিই।'}
+                        </p>
+
+                        <div className="space-y-4">
+                            <div className="rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.04] p-5 backdrop-blur-md">
+                                <div className="flex items-start gap-4">
+                                    <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/10 text-brand-700 dark:text-brand-300">
+                                        <User size={18} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-400 mb-2">
+                                            {lang === 'en' ? 'Direct Review' : 'সরাসরি পর্যালোচনা'}
+                                        </h3>
+                                        <p className="text-sm leading-7 text-gray-500 dark:text-gray-400">
+                                            {lang === 'en'
+                                                ? 'Your inquiry is reviewed by senior decision-makers, not routed through a generic support queue.'
+                                                : 'আপনার অনুসন্ধান সাধারণ সাপোর্ট কিউতে না গিয়ে সিনিয়র সিদ্ধান্তগ্রহণকারীদের দ্বারা পর্যালোচিত হয়।'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="rounded-2xl border border-gray-100 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.04] p-5 backdrop-blur-md">
+                                <div className="flex items-start gap-4">
+                                    <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/10 text-brand-700 dark:text-brand-300">
+                                        <ShieldCheck size={18} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-400 mb-2">
+                                            {lang === 'en' ? 'Secure Handling' : 'নিরাপদ ব্যবস্থাপনা'}
+                                        </h3>
+                                        <p className="text-sm leading-7 text-gray-500 dark:text-gray-400">
+                                            {lang === 'en'
+                                                ? 'Sensitive details are handled with discretion and aligned to enterprise confidentiality expectations.'
+                                                : 'সংবেদনশীল তথ্য বিচক্ষণতার সঙ্গে এবং এন্টারপ্রাইজ গোপনীয়তার মানদণ্ড অনুযায়ী পরিচালিত হয়।'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <textarea className="w-full p-4 bg-white dark:bg-night-900 border border-gray-200 dark:border-night-600 focus:border-brand-700 dark:focus:border-brand-500 outline-none transition-colors dark:text-white h-40 resize-none rounded-md" placeholder={lang === 'en' ? "Confidential Message..." : "বার্তা..."} required></textarea>
-                    <button type="submit" className="w-full bg-brand-700 hover:bg-brand-600 text-white font-bold py-5 rounded-md shadow-xl transition-all uppercase tracking-[0.2em] text-sm hover:-translate-y-1 flex items-center justify-center gap-3"><Lock size={16} />{lang === 'en' ? 'Submit Securely' : 'নিরাপদে জমা দিন'}</button>
-                </form>
+
+                    <form
+                        className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-gray-100 dark:border-white/10 bg-white/85 dark:bg-white/[0.04] shadow-[0_30px_80px_rgba(15,23,42,0.08)] dark:shadow-none backdrop-blur-xl"
+                        onSubmit={(e) => e.preventDefault()}
+                    >
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.07),transparent_28%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.12),transparent_28%)] pointer-events-none" />
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/30 to-transparent" />
+
+                        <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+                            <div className="mb-8 md:mb-10">
+                                <h3 className="text-2xl md:text-3xl font-serif font-bold text-brand-950 dark:text-white mb-3">
+                                    {lang === 'en' ? 'Secure inquiry form' : 'নিরাপদ অনুসন্ধান ফর্ম'}
+                                </h3>
+                                <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-7">
+                                    {lang === 'en'
+                                        ? 'Provide the essential details below and our team will respond with the right next step.'
+                                        : 'নিচে প্রয়োজনীয় তথ্য দিন, আমাদের টিম আপনাকে উপযুক্ত পরবর্তী ধাপ জানাবে।'}
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                                <div>
+                                    <label className="mb-2.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-400">
+                                        <User size={14} />
+                                        {lang === 'en' ? 'Full Name' : 'পূর্ণ নাম'}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="w-full h-14 px-4 bg-gray-50 dark:bg-night-900/90 border border-gray-200 dark:border-night-600 focus:border-brand-600 dark:focus:border-brand-500 outline-none transition-all duration-300 dark:text-white rounded-xl placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                        placeholder={lang === 'en' ? 'Enter your full name' : 'আপনার পূর্ণ নাম লিখুন'}
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-2.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-400">
+                                        <Mail size={14} />
+                                        {lang === 'en' ? 'Work Email' : 'কর্মক্ষেত্রের ইমেইল'}
+                                    </label>
+                                    <input
+                                        type="email"
+                                        className="w-full h-14 px-4 bg-gray-50 dark:bg-night-900/90 border border-gray-200 dark:border-night-600 focus:border-brand-600 dark:focus:border-brand-500 outline-none transition-all duration-300 dark:text-white rounded-xl placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                        placeholder={lang === 'en' ? 'name@company.com' : 'name@company.com'}
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-2.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-400">
+                                        <Building2 size={14} />
+                                        {lang === 'en' ? 'Organization' : 'প্রতিষ্ঠান'}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="w-full h-14 px-4 bg-gray-50 dark:bg-night-900/90 border border-gray-200 dark:border-night-600 focus:border-brand-600 dark:focus:border-brand-500 outline-none transition-all duration-300 dark:text-white rounded-xl placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                                        placeholder={lang === 'en' ? 'Company or institution name' : 'কোম্পানি বা প্রতিষ্ঠানের নাম'}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="mb-2.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-400">
+                                        <BriefcaseBusiness size={14} />
+                                        {lang === 'en' ? 'Inquiry Type' : 'অনুসন্ধানের ধরন'}
+                                    </label>
+                                    <div className="relative">
+                                        <select className="w-full h-14 px-4 pr-12 bg-gray-50 dark:bg-night-900/90 border border-gray-200 dark:border-night-600 focus:border-brand-600 dark:focus:border-brand-500 outline-none transition-all duration-300 dark:text-white rounded-xl appearance-none">
+                                            {inquiryTypes.map((item, i) => (
+                                                <option key={i} value={item.en}>
+                                                    {lang === 'en' ? item.en : item.bn}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                                            <ChevronDown size={18} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-5 md:mt-6">
+                                <label className="mb-2.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-400">
+                                    <FileText size={14} />
+                                    {lang === 'en' ? 'Confidential Brief' : 'গোপনীয় বিবরণ'}
+                                </label>
+                                <textarea
+                                    className="w-full p-4 md:p-5 bg-gray-50 dark:bg-night-900/90 border border-gray-200 dark:border-night-600 focus:border-brand-600 dark:focus:border-brand-500 outline-none transition-all duration-300 dark:text-white h-44 md:h-48 resize-none rounded-xl placeholder:text-gray-400 dark:placeholder:text-gray-500 leading-7"
+                                    placeholder={lang === 'en'
+                                        ? 'Outline your objective, challenge, or context. A concise briefing is sufficient.'
+                                        : 'আপনার উদ্দেশ্য, চ্যালেঞ্জ বা প্রেক্ষাপট সংক্ষেপে লিখুন। সংক্ষিপ্ত বিবরণই যথেষ্ট।'}
+                                    required
+                                />
+                            </div>
+
+                            <div className="mt-6 md:mt-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                                <div className="max-w-md">
+                                    <p className="text-xs md:text-sm leading-6 text-gray-500 dark:text-gray-400">
+                                        {lang === 'en'
+                                            ? 'By submitting, you request a confidential follow-up from our team regarding this inquiry.'
+                                            : 'জমা দেওয়ার মাধ্যমে আপনি এই অনুসন্ধান সম্পর্কে আমাদের টিমের কাছ থেকে একটি গোপনীয় ফলো-আপের অনুরোধ করছেন।'}
+                                    </p>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="group inline-flex items-center justify-center gap-3 rounded-full bg-brand-700 hover:bg-brand-600 text-white font-bold px-6 md:px-8 py-4 md:py-4 shadow-[0_16px_40px_rgba(124,58,237,0.25)] transition-all uppercase tracking-[0.18em] text-[11px] md:text-xs hover:-translate-y-1"
+                                >
+                                    <Lock size={16} />
+                                    <span>{lang === 'en' ? 'Submit Securely' : 'নিরাপদে জমা দিন'}</span>
+                                    <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </motion.div>
         </section>
     );
@@ -95,7 +359,6 @@ export const Methodology = () => {
             <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_top_right,rgba(20,184,166,0.03)_0%,transparent_100%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.02)_0%,transparent_100%)] pointer-events-none"></div>
             
             <div className="container mx-auto px-6 relative z-10">
-                {/* Section Header */}
                 <motion.div initial={{ opacity: 0, y: -30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.8 }} className="text-center max-w-4xl mx-auto mb-20 md:mb-32">
                     <h2 className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-brand-600 dark:text-brand-400 mb-6">{lang === 'en' ? 'Our Methodology' : 'আমাদের পদ্ধতি'}</h2>
                     <h3 className="text-4xl md:text-5xl lg:text-7xl font-serif font-black leading-[1.1] text-brand-950 dark:text-white mb-8 tracking-tight">
@@ -106,24 +369,19 @@ export const Methodology = () => {
                     </p>
                 </motion.div>
 
-                {/* Animated Vertical Roadmap */}
                 <div className="relative max-w-5xl mx-auto">
-                    {/* Central Vertical Line Tracker */}
                     <div className="absolute left-[24px] md:left-1/2 top-4 bottom-4 w-[2px] bg-gradient-to-b from-transparent via-brand-200 dark:via-brand-800/50 to-transparent md:-translate-x-1/2 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.1)]"></div>
 
                     <div className="space-y-16 md:space-y-24 relative pb-10">
                         {steps.map((step, i) => {
-                            const isEven = i % 2 === 0; // Evens go left on desktop
+                            const isEven = i % 2 === 0;
                             return (
                                 <div key={i} className={`flex flex-col md:flex-row items-center justify-between w-full group ${!isEven ? 'md:flex-row-reverse' : ''}`}>
                                     
-                                    {/* Spacing Offset for alternating desktop sides */}
                                     <div className="hidden md:block w-[45%]"></div>
 
-                                    {/* Central Connecting Node */}
                                     <div className="absolute left-[24px] md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white dark:bg-night-950 border-[5px] border-brand-500 z-10 shadow-[0_0_20px_rgba(20,184,166,0.5)] group-hover:scale-150 transition-transform duration-500 ease-out"></div>
 
-                                    {/* Card Container */ }
                                     <motion.div 
                                         initial={{ opacity: 0, x: isEven ? -100 : 100, scale: 0.9 }} 
                                         whileInView={{ opacity: 1, x: 0, scale: 1 }} 
@@ -133,20 +391,16 @@ export const Methodology = () => {
                                     >
                                         <div className={`flex flex-col ${isEven ? 'md:items-end' : 'md:items-start'} items-start w-full`}>
                                             
-                                            {/* Advanced Step Badge matching user request */}
                                             <div className="flex items-center gap-3 mb-5 group-hover:-translate-y-1 transition-transform duration-300">
                                                 <span className="px-5 py-2 rounded-full border border-brand-200 dark:border-brand-500/30 bg-white dark:bg-night-900 text-brand-700 dark:text-brand-300 text-[11px] font-black uppercase tracking-[0.2em] shadow-sm flex items-center gap-2">
                                                     Step - {step.num}
                                                 </span>
                                             </div>
                                             
-                                            {/* Premium Data Box */}
                                             <div className={`p-8 md:p-10 rounded-2xl bg-white dark:bg-white/5 border border-gray-100 dark:border-white/5 shadow-[0_15px_50px_rgba(0,0,0,0.02)] dark:shadow-none hover:shadow-2xl dark:hover:shadow-[0_20px_60px_rgba(20,184,166,0.1)] hover:border-brand-300 dark:hover:border-brand-500/40 hover:-translate-y-2 transition-all duration-500 relative group overflow-hidden w-full ${isEven ? 'md:rounded-tr-none' : 'md:rounded-tl-none'} rounded-tl-none md:rounded-tl-2xl`}>
                                                 
-                                                {/* Micro-connecting horizontal line (Desktop only) */}
                                                 <div className={`absolute top-[40px] w-12 h-[2px] bg-brand-200 dark:bg-brand-500/30 hidden md:block ${isEven ? '-right-12' : '-left-12'}`}></div>
                                                 
-                                                {/* Flare background on hover */}
                                                 <div className="absolute -inset-4 bg-gradient-to-br from-brand-50 to-transparent dark:from-brand-900/20 dark:to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 pointer-events-none"></div>
                                                 
                                                 <div className={`flex w-full ${isEven ? 'md:justify-end' : 'md:justify-start'}`}>
