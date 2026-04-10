@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useAppStore } from '@/lib/store';
 import {
   ArrowRight,
@@ -24,9 +25,37 @@ import {
 } from 'lucide-react';
 import { RichIcon } from '@/components/ui/RichIcon';
 
+const useIsMobileAnimation = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const update = () => {
+      setIsMobile(mediaQuery.matches || !!prefersReducedMotion);
+    };
+
+    update();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', update);
+      return () => mediaQuery.removeEventListener('change', update);
+    } else {
+      mediaQuery.addListener(update);
+      return () => mediaQuery.removeListener(update);
+    }
+  }, [prefersReducedMotion]);
+
+  return isMobile;
+};
+
 export const Capabilities = () => {
   const { lang } = useAppStore();
   const [activeTab, setActiveTab] = useState(0);
+  const isMobile = useIsMobileAnimation();
 
   const data = [
     {
@@ -258,14 +287,18 @@ export const Capabilities = () => {
       className="py-24 md:py-32 bg-white dark:bg-night-950 relative overflow-hidden"
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-96 h-96 bg-brand-500/5 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse" />
+        <div className="hidden md:block absolute top-[20%] left-[10%] w-96 h-96 bg-brand-500/5 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse" />
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: -50 }}
+        initial={isMobile ? { opacity: 0, y: 12 } : { opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.8, type: 'spring' }}
+        viewport={isMobile ? { once: true, margin: '-40px' } : { once: true, margin: '-100px' }}
+        transition={
+          isMobile
+            ? { duration: 0.35, ease: 'easeOut' }
+            : { duration: 0.8, type: 'spring' }
+        }
         suppressHydrationWarning
         className="container mx-auto px-6 relative z-10"
       >
@@ -285,11 +318,11 @@ export const Capabilities = () => {
 
         {/* Mobile only premium tabs */}
         <div className="md:hidden max-w-5xl mx-auto mb-10">
-          <div className="relative rounded-[2rem] border border-white/10 bg-white/70 dark:bg-white/[0.03] backdrop-blur-xl shadow-[0_20px_80px_-30px_rgba(0,0,0,0.45)] overflow-hidden">
+          <div className="relative rounded-[2rem] border border-white/10 bg-white/70 dark:bg-white/[0.03] shadow-[0_20px_80px_-30px_rgba(0,0,0,0.45)] overflow-hidden">
             <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${active.ring}`} />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_35%)] dark:bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_35%)]" />
             <div
-              className={`absolute -top-16 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full blur-3xl bg-gradient-to-r ${active.ring}`}
+              className={`hidden absolute -top-16 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full blur-3xl bg-gradient-to-r ${active.ring}`}
             />
 
             <div className="relative p-4">
@@ -302,15 +335,15 @@ export const Capabilities = () => {
                         <button
                           key={tab.id}
                           onClick={() => setActiveTab(i)}
-                          className="relative rounded-[1.25rem] px-4 py-4 text-left overflow-hidden transition-all duration-300 group"
+                          className="relative rounded-[1.25rem] px-4 py-4 text-left overflow-hidden transition-colors duration-200 group"
                         >
-                          {isActive && (
-                            <motion.div
-                              layoutId="mobileCapabilitiesTab"
-                              transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-                              className={`absolute inset-0 rounded-[1.25rem] bg-gradient-to-br ${tab.color} shadow-[0_18px_40px_-18px_rgba(0,0,0,0.55)]`}
-                            />
-                          )}
+                          <div
+                            className={`absolute inset-0 rounded-[1.25rem] ${
+                              isActive
+                                ? `bg-gradient-to-br ${tab.color} shadow-[0_18px_40px_-18px_rgba(0,0,0,0.55)]`
+                                : 'bg-transparent'
+                            }`}
+                          />
 
                           <div
                             className={`absolute inset-0 rounded-[1.25rem] border ${
@@ -357,10 +390,10 @@ export const Capabilities = () => {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active.id}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.35 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.22, ease: 'easeOut' }}
                     className="relative rounded-[1.6rem] overflow-hidden border border-black/5 dark:border-white/10 bg-brand-950 dark:bg-night-900 p-6 text-white"
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br ${active.color} opacity-20`} />
@@ -369,7 +402,7 @@ export const Capabilities = () => {
                     <div className="relative z-10 h-full flex flex-col justify-between min-h-[210px]">
                       <div>
                         <div className="flex items-center gap-3 mb-5">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 border border-white/10">
                             <active.icon size={22} />
                           </div>
                           <div>
@@ -441,22 +474,26 @@ export const Capabilities = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, scale: 0.98, y: 10 }}
+            initial={isMobile ? { opacity: 0, y: 8 } : { opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -10 }}
-            transition={{ duration: 0.4 }}
+            exit={isMobile ? { opacity: 0, y: -8 } : { opacity: 0, scale: 0.98, y: -10 }}
+            transition={
+              isMobile
+                ? { duration: 0.22, ease: 'easeOut' }
+                : { duration: 0.4 }
+            }
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {data[activeTab].services.map((service, i) => (
               <div
                 key={i}
-                className={`group p-8 md:p-10 border rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 relative overflow-hidden flex flex-col items-start ${getBgColor(
+                className={`group p-8 md:p-10 border rounded-[2rem] shadow-sm md:hover:shadow-xl transition-all duration-500 relative overflow-hidden flex flex-col items-start ${getBgColor(
                   service.theme
                 )}`}
               >
                 <RichIcon icon={service.icon} theme={service.theme} />
 
-                <h3 className="text-2xl font-serif font-bold mb-3 text-brand-950 dark:text-white group-hover:text-brand-700 transition-colors">
+                <h3 className="text-2xl font-serif font-bold mb-3 text-brand-950 dark:text-white md:group-hover:text-brand-700 transition-colors">
                   {lang === 'en' ? service.title.en : service.title.bn}
                 </h3>
 
@@ -466,9 +503,9 @@ export const Capabilities = () => {
 
                 <a
                   href="#"
-                  className="mt-auto inline-flex items-center justify-center w-12 h-12 bg-white dark:bg-night-800 rounded-full shadow-sm text-brand-950 dark:text-white group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300"
+                  className="mt-auto inline-flex items-center justify-center w-12 h-12 bg-white dark:bg-night-800 rounded-full shadow-sm text-brand-950 dark:text-white md:group-hover:bg-brand-600 md:group-hover:text-white transition-colors duration-300"
                 >
-                  <ArrowRight size={18} className="transition-transform group-hover:rotate-[-45deg]" />
+                  <ArrowRight size={18} className="transition-transform md:group-hover:rotate-[-45deg]" />
                 </a>
               </div>
             ))}
