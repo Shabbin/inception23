@@ -1,265 +1,376 @@
-# Aquatank
+# INCEPTION 23
 
-> A clean Android water-intake tracker that helps users set a daily hydration goal, log water throughout the day, review progress history, and learn healthier hydration habits.
+> A premium strategic advisory landing website for business consulting, legal support, and technology transformation services.
 
-![Android](https://img.shields.io/badge/Platform-Android-brightgreen?style=for-the-badge\&logo=android)
-![Java](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge\&logo=openjdk)
-![SQLite](https://img.shields.io/badge/Database-SQLite-blue?style=for-the-badge\&logo=sqlite)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge\&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=for-the-badge\&logo=vercel)
 
 ## Overview
 
-**Aquatank** is a native Android application built to make daily hydration tracking simple and practical. Users can enter their body weight, calculate a recommended daily water goal, add water intake entries, monitor progress with a visual indicator, review previous records, and keep their data stored locally on the device.
+**INCEPTION 23** is a modern, animated, bilingual corporate website built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**. The site presents a premium advisory firm focused on three integrated service pillars:
 
-The app is built with **Java**, **XML layouts**, **Android Jetpack Navigation**, **ViewModel/LiveData**, **View Binding**, and **SQLite** for persistent local storage.
+* **Business Advisory**
+* **Legal Support**
+* **IT Solutions**
+
+The experience is designed as a high-end landing page with smooth motion, responsive layouts, bilingual English/Bangla content, dark mode support, animated hero visuals, service tabs, industry sections, testimonials, leadership profiles, global presence, and a confidential inquiry form.
+
+Live site: [inception23.vercel.app](https://inception23.vercel.app)
 
 ## Features
 
-* **Daily hydration dashboard** — view today’s intake, daily goal, and progress at a glance.
-* **Water intake logging** — add water entries throughout the day and track the total consumed amount.
-* **Recommended goal calculation** — use body weight from settings to calculate a suggested daily water target.
-* **Today’s log list** — review individual water logs for the current day.
-* **History screen** — browse previous daily intake records and hydration progress.
-* **Local SQLite storage** — keep daily summaries, individual logs, and user/community data on-device.
-* **Information screen** — learn about the importance and benefits of staying hydrated.
-* **Settings screen** — manage personal inputs such as body weight and hydration goal preferences.
-* **Bottom navigation** — move between Home, History, Users, Information, and Settings sections.
-* **Material Android UI** — built with modern Android UI components and XML-based layouts.
+* **Premium landing page experience** with animated, section-based storytelling.
+* **Bilingual interface** with English and Bangla content switching.
+* **Light and dark mode** powered by persisted global state.
+* **3D/Lottie-powered hero section** using React Three Fiber, Drei, and DotLottie.
+* **Service capability tabs** for Business Advisory, Legal Support, and IT Solutions.
+* **Industry expertise section** covering technology, energy, healthcare, finance, public sector, and manufacturing.
+* **Core values timeline** describing the firm’s operating philosophy.
+* **Proof of impact section** with advisory, efficiency, and compliance metrics.
+* **Confidential inquiry form** for collecting business, legal, or technology inquiries.
+* **Leadership/team section** with partner cards.
+* **Testimonials carousel** with client-style endorsements and outcomes.
+* **Global presence section** with interactive office/location presentation.
+* **Careers call-to-action** for recruitment and future partners.
+* **Responsive mobile navigation** with scroll-aware behavior.
+* **State persistence** through Zustand and local storage.
 
 ## Tech Stack
 
-| Layer              | Technology                                         |
-| ------------------ | -------------------------------------------------- |
-| Platform           | Android                                            |
-| Language           | Java                                               |
-| UI                 | XML Layouts, Material Components, ConstraintLayout |
-| Architecture       | Activity + Fragments + ViewModels                  |
-| Navigation         | Android Jetpack Navigation                         |
-| State/UI Data      | LiveData, ViewModel                                |
-| Persistence        | SQLite via `SQLiteOpenHelper`                      |
-| Build System       | Gradle                                             |
-| Minimum SDK        | 24                                                 |
-| Target/Compile SDK | 33                                                 |
+| Category          | Technology                        |
+| ----------------- | --------------------------------- |
+| Framework         | Next.js 15                        |
+| UI Library        | React 19                          |
+| Language          | TypeScript                        |
+| Styling           | Tailwind CSS                      |
+| Animation         | Framer Motion                     |
+| 3D Graphics       | Three.js, React Three Fiber, Drei |
+| Lottie Animations | DotLottie React                   |
+| Icons             | Lucide React                      |
+| State Management  | Zustand                           |
+| Deployment        | Vercel                            |
 
 ## Project Structure
 
 ```text
-Aquatank/
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/example/watertracker/
-│   │   │   │   ├── MainActivity.java
-│   │   │   │   ├── WaterIntakeDBHelper.java
-│   │   │   │   ├── IntakeRecord.java
-│   │   │   │   ├── WaterLog.java
-│   │   │   │   ├── CustomViewModelFactory.java
-│   │   │   │   └── ui/
-│   │   │   │       ├── home/
-│   │   │   │       ├── history/
-│   │   │   │       ├── information/
-│   │   │   │       ├── settings/
-│   │   │   │       └── users/
-│   │   │   ├── res/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── menu/
-│   │   │   │   ├── navigation/
-│   │   │   │   ├── values/
-│   │   │   │   └── drawable/
-│   │   │   └── AndroidManifest.xml
-│   │   ├── androidTest/
-│   │   └── test/
-│   ├── build.gradle
-│   └── proguard-rules.pro
-├── build.gradle
-├── settings.gradle
-├── gradle.properties
-├── gradlew
-├── gradlew.bat
-└── LICENSE
+inception23/
+├── public/
+│   ├── IT-Solutions.jpg
+│   ├── Law.lottie
+│   ├── business.lottie
+│   ├── technology.lottie
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src/
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── home/
+│   │   │   ├── Capabilities.tsx
+│   │   │   ├── Careers.tsx
+│   │   │   ├── CoreValues.tsx
+│   │   │   ├── GlobalPresence.tsx
+│   │   │   ├── Hero3D.tsx
+│   │   │   ├── HeroWrapper.tsx
+│   │   │   ├── IndustriesMarquee.tsx
+│   │   │   ├── Insights.tsx
+│   │   │   ├── Sections.tsx
+│   │   │   ├── Team.tsx
+│   │   │   └── Testimonials.tsx
+│   │   ├── layout/
+│   │   │   ├── Footer.tsx
+│   │   │   └── Header.tsx
+│   │   └── ui/
+│   │       ├── Illustrations.tsx
+│   │       └── RichIcon.tsx
+│   └── lib/
+│       └── store.ts
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
-## Core Screens
+## Main Sections
 
-### Home
+### Hero
 
-The Home screen is the main hydration dashboard. It shows the user’s daily target, current progress, and water intake logs for the day. Users can add intake amounts and immediately see their progress update.
+The hero section introduces the firm through rotating service slides:
 
-### History
+* Business & Strategy Advisory
+* Corporate Legal Support
+* Software & IT Solutions
 
-The History screen displays previous intake records, helping users review consistency and spot patterns in their hydration habits.
+It combines motion effects, Lottie illustrations, 3D canvas elements, and CTA buttons for exploration and inquiry.
 
-### Users
+### Capabilities
 
-The Users section supports a community/progress-style showcase model, giving the app a more social and motivational layer.
+The capabilities section presents the firm’s three major service pillars. Each pillar includes six service cards with icons, descriptions, and bilingual copy.
 
-### Information
+#### Business Advisory
 
-The Information screen provides educational hydration content so users understand why regular water intake matters.
+* Corporate Strategy
+* M&A Advisory
+* Operational Scale
+* Financial Restructuring
+* Market Entry
+* Executive Coaching
 
-### Settings
+#### Legal Support
 
-The Settings screen stores user preferences such as weight, which is used to calculate or update the recommended daily water intake goal.
+* Regulatory Compliance
+* Intellectual Property
+* Corporate Law
+* Dispute Resolution
+* Contract Integrity
+* Risk Mitigation
 
-## Data Model
+#### IT Solutions
 
-Aquatank stores data locally using SQLite. The main database helper is `WaterIntakeDBHelper`, which manages:
+* Cloud Infrastructure
+* Cyber Security
+* Data & AI Analytics
+* Digital Transformation
+* Edge Computing
+* Disaster Recovery
 
-* **Daily intake summaries**
+### Industry Expertise
 
-  * Date
-  * Total water consumed
-  * Goal amount
+The site highlights cross-industry advisory capability across:
 
-* **Individual water logs**
+* Technology
+* Energy
+* Healthcare
+* Financial Services
+* Public Sector
+* Manufacturing
 
-  * Log ID
-  * Date
-  * Time
-  * Amount consumed
+### Core Values
 
-* **Users/community data**
+A visual timeline communicates the firm’s values:
 
-  * User ID
-  * Name
-  * Email
-  * Status
-  * Initials
+* Absolute Precision
+* Relentless Accountability
+* Market Dominance
+* Architectural Superiority
+* Frictionless Scaling
+* End-Game Execution
 
-This makes the app fully usable without requiring an external backend.
+### Proof of Impact
+
+A metrics-focused section communicates credibility through business outcomes such as assets advised, efficiency gains, and regulatory compliance.
+
+### Inquiry Form
+
+The inquiry form is designed for confidential business conversations. It includes fields for name, work email, organization, inquiry type, and confidential brief.
+
+### Team
+
+The team section presents leadership/partner profiles with roles, bios, and visual cards.
+
+### Testimonials
+
+The testimonials section includes a carousel-style client endorsement experience with categories, outcomes, and navigation controls.
+
+### Global Presence
+
+The global section presents locations including New York, London, Dubai, Singapore, and Dhaka with interactive hover visuals.
+
+### Careers
+
+A premium call-to-action invites future partners and talent to explore career opportunities.
+
+## State Management
+
+Global UI state is handled with **Zustand** in `src/lib/store.ts`.
+
+The store manages:
+
+* Current language: `en` or `bn`
+* Current theme: `light` or `dark`
+* Active hero slide
+* Language toggle
+* Theme toggle
+* Slide updates
+
+State is persisted in local storage under the key:
+
+```text
+inception-storage
+```
+
+This keeps language and theme preferences available across page reloads.
+
+## Styling
+
+The project uses Tailwind CSS with custom theme extensions.
+
+Custom design tokens include:
+
+* `brand` color palette for the main purple identity
+* `night` palette for dark mode surfaces
+* Poppins as the body font
+* Playfair Display as the heading font
+* Custom radial hero glow background
+* Smooth scroll behavior
+* Custom scrollbar styling
 
 ## Getting Started
 
 ### Prerequisites
 
-Make sure you have the following installed:
+Make sure you have installed:
 
-* [Android Studio](https://developer.android.com/studio)
-* Android SDK 33 or compatible SDK tools
-* JDK 17 or the JDK version required by your Android Gradle Plugin setup
-* A physical Android device or emulator running Android 7.0+ / API 24+
+* Node.js 18.18+ or newer
+* npm, yarn, pnpm, or bun
 
 ### Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/Shabbin/Aquatank.git
+git clone https://github.com/Shabbin/inception23.git
 ```
 
-Open the project folder:
+Move into the project directory:
 
 ```bash
-cd Aquatank
+cd inception23
 ```
 
-Open the project in **Android Studio**:
-
-1. Launch Android Studio.
-2. Select **Open**.
-3. Choose the cloned `Aquatank` folder.
-4. Let Gradle sync complete.
-5. Connect a device or start an emulator.
-6. Click **Run**.
-
-### Build from Terminal
-
-You can also build the debug APK using Gradle:
+Install dependencies:
 
 ```bash
-./gradlew assembleDebug
+npm install
 ```
 
-On Windows:
+Start the development server:
 
-```bat
-gradlew.bat assembleDebug
+```bash
+npm run dev
 ```
 
-The generated APK will be available under:
+Open the project in your browser:
 
 ```text
-app/build/outputs/apk/debug/
+http://localhost:3000
 ```
 
-## Usage
+## Available Scripts
 
-1. Open the app.
-2. Go to **Settings** and enter your body weight.
-3. Return to **Home** to view your recommended daily water goal.
-4. Add water intake entries whenever you drink water.
-5. Track your progress through the dashboard and progress indicator.
-6. Open **History** to review past intake records.
-7. Visit **Information** to learn more about hydration.
+| Command         | Description                                  |
+| --------------- | -------------------------------------------- |
+| `npm run dev`   | Starts the local Next.js development server. |
+| `npm run build` | Creates a production build.                  |
+| `npm run start` | Starts the production server after building. |
+| `npm run lint`  | Runs the configured lint command.            |
 
-## Architecture
+## Deployment
 
-Aquatank follows a straightforward Android architecture:
+The project is suitable for deployment on **Vercel**.
 
-* `MainActivity` hosts the bottom navigation and fragment container.
-* Each main section is implemented as a Fragment.
-* ViewModels help separate UI logic from data/state handling.
-* View Binding is enabled for safer and cleaner layout access.
-* SQLite stores intake summaries, individual logs, and user records locally.
+### Deploy to Vercel
 
-This structure keeps the app easy to understand, maintain, and extend.
+1. Push the repository to GitHub.
+2. Import the repository into Vercel.
+3. Keep the framework preset as **Next.js**.
+4. Install command: `npm install`
+5. Build command: `npm run build`
+6. Output directory: `.next`
+7. Deploy.
 
-## Dependencies
+Live deployment:
 
-Key libraries used in the project include:
+```text
+https://inception23.vercel.app
+```
 
-* AndroidX AppCompat
-* Material Components
-* ConstraintLayout
-* AndroidX Lifecycle LiveData
-* AndroidX Lifecycle ViewModel
-* AndroidX Navigation Fragment
-* AndroidX Navigation UI
-* RecyclerView
-* SQLite
-* JUnit and Espresso for testing support
+## Recommended Improvements
 
-## Roadmap Ideas
+The project already has a strong visual foundation. These improvements would make it cleaner and more production-ready:
 
-Potential improvements for future versions:
+* Remove generated build artifacts such as `.next/` and `tsconfig.tsbuildinfo` from version control.
+* Add `.next/` and `tsconfig.tsbuildinfo` to `.gitignore` if they are not already ignored.
+* Replace placeholder Unsplash/team images with real branded assets.
+* Connect the inquiry form to an API route, email service, or CRM.
+* Add real publication pages for the Insights section.
+* Add separate pages for Services, Industries, Careers, and Contact.
+* Add SEO metadata for Open Graph and Twitter cards.
+* Add a sitemap and robots configuration.
+* Add accessibility testing for motion-heavy sections.
+* Add form validation and submission feedback.
+* Add unit or component tests for shared UI and state behavior.
 
-* Add charts for weekly and monthly hydration trends.
-* Add reminders and notification scheduling.
-* Add metric/imperial unit switching.
-* Add dark mode refinements.
-* Add cloud sync or backup support.
-* Add user profile customization.
-* Add export/import support for hydration history.
-* Add richer analytics for streaks, averages, and goal completion.
+## Environment Variables
+
+The current project does not require environment variables for local development.
+
+If the inquiry form is connected to a backend or email provider later, consider adding values such as:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://inception23.vercel.app
+CONTACT_EMAIL=example@domain.com
+EMAIL_SERVICE_API_KEY=your_api_key_here
+```
+
+## Browser Support
+
+This project targets modern browsers that support current React, Next.js, CSS, and WebGL features.
+
+For the best experience, use:
+
+* Google Chrome
+* Microsoft Edge
+* Firefox
+* Safari
+
+## Performance Notes
+
+Because the project uses animations, 3D visuals, remote images, and Lottie assets, performance should be monitored carefully. The code already includes mobile/reduced-motion checks in several sections, which is helpful for improving usability on smaller devices.
+
+For production optimization, consider:
+
+* Compressing Lottie files
+* Replacing heavy remote images with optimized local assets
+* Using `next/image` wherever possible
+* Lazy-loading visual sections below the fold
+* Testing Lighthouse performance on mobile
 
 ## Contributing
 
-Contributions are welcome. To contribute:
+Contributions are welcome.
 
-1. Fork the repository.
-2. Create a new feature branch:
+To contribute:
 
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-3. Commit your changes:
+Make your changes, then commit:
 
 ```bash
 git commit -m "Add your feature"
 ```
 
-4. Push to your branch:
+Push your branch:
 
 ```bash
 git push origin feature/your-feature-name
 ```
 
-5. Open a pull request.
-
-## License
-
-This project is licensed under the **MIT License**. See the [`LICENSE`](LICENSE) file for details.
+Open a pull request for review.
 
 ## Author
 
@@ -267,8 +378,12 @@ Developed by **Shabbin Hossain**.
 
 GitHub: [@Shabbin](https://github.com/Shabbin)
 
+## License
+
+No license file is currently visible in this repository. If this project is intended to be open source, add a license such as MIT, Apache-2.0, or GPL depending on how you want others to use it.
+
 ---
 
 <p align="center">
-  Stay hydrated. Track consistently. Build better habits with Aquatank.
+  Built for strategic clarity, enterprise confidence, and digital transformation.
 </p>
